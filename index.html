@@ -18,7 +18,7 @@
       src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
     ></script>
 
-    <!-- Babel for JSX (Updated to latest version to support optional chaining) -->
+    <!-- Babel for JSX -->
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 
     <!-- Tailwind -->
@@ -112,6 +112,12 @@
           opacity: 0;
         }
       }
+      
+      .locked-pattern {
+        background-image: repeating-linear-gradient(45deg, #f3f4f6 25%, transparent 25%, transparent 75%, #f3f4f6 75%, #f3f4f6), repeating-linear-gradient(45deg, #f3f4f6 25%, #fff 25%, #fff 75%, #f3f4f6 75%, #f3f4f6);
+        background-position: 0 0, 10px 10px;
+        background-size: 20px 20px;
+      }
 
       /* Remove “rubber band” on iOS button taps */
       button {
@@ -147,6 +153,9 @@
       const IconVolume = (
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path></svg>
       );
+      const IconLock = (
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+      );
 
       // -----------------------
       // DATA
@@ -163,7 +172,7 @@
             11: { title: "Test 11", columns: { A: [{id:'t11a1',q:"Write in words the missing number. 6, 16, 26, 36, [ ], 56",a:["forty six","forty-six"],h1:"Count in 10s: 36 + 10.",h2:"Forty-six."},{id:'t11a2a',q:"Write these numbers in digits: (a) 4 tens 7 ones",a:["47"],h1:"Put 4 in the tens column and 7 in the units.",h2:"47."},{id:'t11a2b',q:"Write these numbers in digits: (b) 6 tens 3 ones",a:["63"],h1:"6 in tens, 3 in units.",h2:"63."},{id:'t11a3',q:"85 + 10 =",a:["95"],h1:"Add a ten to 80.",h2:"95."},{id:'t11a4',q:"77 - 10 =",a:["67"],h1:"Take a ten from 70.",h2:"67."},{id:'t11a5',q:"1 1/2 - 1/4 =",a:["1 1/4","1.25"],h1:"A half is 2 quarters. 2 quarters - 1 quarter = 1 quarter.",h2:"1 and a quarter."},{id:'t11a6',q:"0 x 4 =",a:["0"],h1:"Nothing times 4 is still nothing.",h2:"0."},{id:'t11a7',q:"8c + 10c + 20c =",a:["38","38c"],h1:"20 + 10 = 30. Add 8.",h2:"38."},{id:'t11a8',q:"44c = [ ] 20cs and [ ] 4c",a:["2 4","2, 4"],h1:"How many 20s in 40? 2.",h2:"2 20s and 4c."},{id:'t11a9',q:"16 divided by 4 =",a:["4"],h1:"Half of 16 is 8. Half of 8 is 4.",h2:"4."},{id:'t11a10',q:"40 = 4 x [ ]",a:["10"],h1:"4 times what is 40?",h2:"10."}], B: [{id:'t11b1',q:"What number is thirteen more than eighty?",a:["93"],h1:"80 + 13.",h2:"93."},{id:'t11b2',q:"From 20c take 13c.",a:["7","7c"],h1:"20 - 13.",h2:"7."},{id:'t11b3',q:"How many days in February this year? (29 in a leap year)",a:["28","29"],h1:"Usually it is 28.",h2:"28 (or 29)."},{id:'t11b4',q:"Find the total value of these coins: 50c, 20c, 5c, 5c, 5c.",a:["85","85c"],h1:"50+20=70. 5+5+5=15.",h2:"85."},{id:'t11b5',q:"The length of a line is 7cm. How long is a line that is 5 times as long as it?",a:["35","35cm"],h1:"7 x 5.",h2:"35."},{id:'t11b6',q:"Which of these numbers is nearest to 60? 58, 64, 56, 61, 63",a:["61"],h1:"61 is only 1 away.",h2:"61."},{id:'t11b7',type:'numline_50',q:"What number is the arrow pointing to?",a:["50"],h1:"Look at the increments. It's half way.",h2:"50."},{id:'t11b8',q:"One-quarter of George's money is 8c. How much has he altogether?",a:["32","32c"],h1:"If a quarter is 8, the whole is 8 x 4.",h2:"32."},{id:'t11b9',q:"Finlay gave six 5cs to pay for seven sweets at 4c each. How much change did he receive?",a:["2","2c"],h1:"Gave: 6x5=30. Cost: 7x4=28.",h2:"30 - 28 = 2."},{id:'t11b10',q:"Badges 3 for 20c. How many badges can be bought for 60c?",a:["9"],h1:"60c is 3 lots of 20c. So 3 lots of 3 badges.",h2:"9."}], C: [{id:'t11c1',type:'rods_diff',q:"Find the difference between the lengths of the rods. (12cm and 9cm)",a:["3","3cm"],h1:"12 - 9.",h2:"3."},{id:'t11c2',q:"How many hours from 8:15 a.m. to 12:15 p.m.?",a:["4","4h"],h1:"Count hours: 9:15, 10:15, 11:15, 12:15.",h2:"4."},{id:'t11c3',q:"Write in digits the number that equals 9 tens and 7 ones.",a:["97"],h1:"Digits.",h2:"97."},{id:'t11c4',type:'pencil',q:"Is this pencil vertical or horizontal?",a:["horizontal"],h1:"Lying flat like the horizon.",h2:"Horizontal."},{id:'t11c5',q:"Write the correct sign +, -, x or / in place of: 6 [ ] 4 = 24",a:["x","*"],h1:"6 groups of 4 make 24.",h2:"x"},{id:'t11c6',q:"How much change from two $20 notes after spending $31?",a:["9","$9"],h1:"40-31.",h2:"9."},{id:'t11c7',q:"How many halves in six whole ones?",a:["12"],h1:"Each whole has 2 halves. 6 x 2.",h2:"12."},{id:'t11c8',q:"Decrease 70c by 8c.",a:["62","62c"],h1:"70 - 8.",h2:"62."},{id:'t11c9',q:"What number is 3 times bigger than 4?",a:["12"],h1:"3 x 4.",h2:"12."},{id:'t11c10',q:"How many days in September?",a:["30"],h1:"30 days hath...",h2:"30."}] } },
             12: { title: "Test 12", columns: { A: [{id:'t12a1',q:"Write in words the missing number. 82, 81, 80, [ ], 78",a:["seventy nine","seventy-nine"],h1:"Counting backwards. Before 80 comes 79.",h2:"Seventy-nine."},{id:'t12a2a',q:"Write these numbers in digits: (a) 7 tens 2 ones",a:["72"],h1:"7 in tens, 2 in units.",h2:"72."},{id:'t12a2b',q:"Write these numbers in digits: (b) 5 tens 0 ones",a:["50"],h1:"5 in tens, 0 in units.",h2:"50."},{id:'t12a3',q:"58 + 30 =",a:["88"],h1:"Add 3 tens to 5 tens.",h2:"88."},{id:'t12a4',q:"72 - 50 =",a:["22"],h1:"Take 5 tens from 7 tens.",h2:"22."},{id:'t12a5',q:"8 x 4 = 4 x [ ]",a:["8"],h1:"Swap the order.",h2:"8."},{id:'t12a6',q:"2 - 3/4 =",a:["1 1/4","1.25"],h1:"2 wholes is 8 quarters. 8 - 3 = 5 quarters.",h2:"1 and a quarter."},{id:'t12a7',q:"92c = [ ] 10cs and [ ] 2c",a:["9 2","9, 2"],h1:"How many tens in 90? 9.",h2:"9 10s and 2c."},{id:'t12a8',q:"12 halves = [ ] whole ones",a:["6"],h1:"Every 2 halves make a whole. 12 divided by 2.",h2:"6."},{id:'t12a9',q:"20 divided by 4 =",a:["5"],h1:"4x5.",h2:"5."},{id:'t12a10',q:"Which number is missing from the sequence? 10, 15, 20, [ ], 30, 35, 40",a:["25"],h1:"Counting in 5s.",h2:"25."}], B: [{id:'t12b1',q:"Find the sum of 40, 30 and 20.",a:["90"],h1:"4+3+2 = 9 tens.",h2:"90."},{id:'t12b2',type:'abacus_14',q:"Write in words the number shown on the abacus.",a:["fourteen"],h1:"1 ten 4 units.",h2:"Fourteen."},{id:'t12b3',q:"How many hours in a day?",a:["24"],h1:"A full day and night.",h2:"24."},{id:'t12b4',q:"Share 32c equally among four children. How much each?",a:["8","8c"],h1:"32 divided by 4.",h2:"8."},{id:'t12b5',q:"Increase 50 by 27.",a:["77"],h1:"50 + 27.",h2:"77."},{id:'t12b6',q:"Take 32c from two 20cs.",a:["8","8c"],h1:"20 + 20 = 40. 40 - 32.",h2:"8."},{id:'t12b7',q:"What number is 5 times greater than 8?",a:["40"],h1:"5 x 8.",h2:"40."},{id:'t12b8',q:"How many days in November?",a:["30"],h1:"30 days hath...",h2:"30."},{id:'t12b9',q:"86 minus 40 plus 20.",a:["66"],h1:"86 - 40 = 46. 46 + 20.",h2:"66."},{id:'t12b10',q:"How many cents is 3/4 of 12c?",a:["9","9c"],h1:"1/4 of 12 is 3. So 3/4 is 3 x 3.",h2:"9."}], C: [{id:'t12c1',q:"What number is seven less than eighty-three?",a:["76"],h1:"83 - 7.",h2:"76."},{id:'t12c2',q:"Which of these numbers is nearest to 80? 83, 75, 86, 78, 84",a:["78"],h1:"78 is only 2 away.",h2:"78."},{id:'t12c3',type:'numline_50',q:"What number is the arrow pointing to?",a:["50"],h1:"Look at the marks. It's halfway.",h2:"50."},{id:'t12c4',q:"How many 5cs are equal in value to the sum of 16c and 14c?",a:["6"],h1:"16 + 14 = 30. How many 5s in 30?",h2:"6."},{id:'t12c5',q:"Find one-quarter of the product of 8 and 3.",a:["6"],h1:"Product means multiply. 8 x 3 = 24. Quarter of 24.",h2:"6."},{id:'t12c6',q:"How much change from a 50c after spending 39c?",a:["11","11c"],h1:"50 - 39.",h2:"11."},{id:'t12c7',q:"Which sign +, -, x or / is used in place of [ ]? 10 [ ] 4 = 6",a:["-"],h1:"10 gets smaller. 10 - 4 = 6.",h2:"-"},{id:'t12c8',q:"One half of Marek's money is 26c. Find one-quarter of his money.",a:["13","13c"],h1:"Quarter is half of a half. Half of 26.",h2:"13."},{id:'t12c9',type:'picto_colours',q:"How many children chose blue as their favourite colour?",a:["5"],h1:"Count the blue faces.",h2:"5."},{id:'t12c10',type:'rect_perim',q:"Find the total length of the four sides of the rectangle.",a:["22","22cm"],h1:"8 + 8 + 3 + 3.",h2:"22."}] } },
             99: { title: "Progress Test 1", columns: { A: [{id:'pt1',q:"7 + 0 + 9 =",a:["16"],h1:"7 + 9.",h2:"16."},{id:'pt2',q:"Find the difference between 8 and 15.",a:["7"],h1:"15 - 8.",h2:"7."},{id:'pt3',q:"Nine times 4 =",a:["36"],h1:"9 x 4.",h2:"36."},{id:'pt4',q:"Divide 45 by 5.",a:["9"],h1:"How many 5s in 45?",h2:"9."},{id:'pt5',q:"Eight tens and 4 ones. Write the number in words.",a:["eighty four","eighty-four"],h1:"84.",h2:"Eighty-four."},{id:'pt6',type:'square_quarter',q:"The shape stands for a whole one. What fraction of it is shaded?",a:["1/4","quarter"],h1:"1 part shaded out of 4.",h2:"1/4."},{id:'pt7',q:"After spending 16c and 20c, what change is there out of a 50c?",a:["14","14c"],h1:"Spend: 36. 50 - 36.",h2:"14."},{id:'pt8',q:"76 - 40 =",a:["36"],h1:"7 tens - 4 tens.",h2:"36."},{id:'pt9',q:"60 + 33 =",a:["93"],h1:"60 + 30 + 3.",h2:"93."},{id:'pt10',q:"What is the total value of these coins? 50c 20c 10c 5c",a:["85","85c"],h1:"70 + 15.",h2:"85."}], B: [{id:'pt11',q:"Four sweets can be bought for 10c. How many sweets for 40c?",a:["16"],h1:"40c is 4 times 10c. So 4 times as many sweets.",h2:"4 x 4 = 16."},{id:'pt12',type:'clock_445',q:"Write in words the time shown on the clock.",a:["quarter to five"],h1:"The minute hand is on 9. It is 15 minutes to the next hour.",h2:"Quarter to five."},{id:'pt13',q:"1/4 of Javed's money is 15c. How much is 1/2 of his money?",a:["30","30c"],h1:"Half is double a quarter. Double 15.",h2:"30."},{id:'pt14',q:"The distance all round the square is 28cm. Find the length of each side.",a:["7","7cm"],h1:"A square has 4 equal sides. 28 divided by 4.",h2:"7."},{id:'pt15',q:"There are eight chairs in a row and five rows. How many chairs altogether?",a:["40"],h1:"8 x 5.",h2:"40."},{id:'pt16',q:"How many days in August and September together?",a:["61"],h1:"31 + 30.",h2:"61."},{id:'pt17',q:"Find the sum of 1/2 of 8c and 1/4 of 16c.",a:["8","8c"],h1:"Half of 8 is 4. Quarter of 16 is 4. 4 + 4.",h2:"8."},{id:'pt18',q:"In this sequence which number is incorrect? 0, 5, 10, 15, 20, 25, 30, 34, 40",a:["34"],h1:"We are counting in 5s. 34 doesn't end in 5 or 0.",h2:"34."},{id:'pt19',q:"Three lines measure 12 1/2 cm, 3cm and 7 1/2 cm. By how many centimetres is the shortest line less than the longest line?",a:["9.5","9 1/2"],h1:"Longest is 12.5. Shortest is 3. 12.5 - 3.",h2:"9.5."},{id:'pt20',type:'shape_cube',q:"How many vertices does a cube have?",a:["8"],h1:"'Vertices' means corners. Count the sharp corners on a dice.",h2:"8."}] } }
-        };
+      };
 
       // -----------------------
       // Helpers
@@ -563,6 +572,7 @@
         const isCorrect = status === "correct";
         const isWrong = status === "wrong";
         const numericLike = looksNumericAnswer(qData);
+        const showHintButton = attemptCount > 0 && !isCorrect;
 
         let border = "border-gray-300 focus:border-sky-500 focus:ring-2 focus:ring-sky-200";
         let bg = "bg-white";
@@ -658,12 +668,15 @@
                     </span>
                   </button>
 
-                  <button
-                    onClick={() => onHint(qData)}
-                    className="h-16 px-4 rounded-2xl font-bold text-gray-800 bg-white border-2 border-gray-200 hover:border-gray-300"
-                  >
-                    Hint
-                  </button>
+                  {/* Smart Hint Button - Only shows if attemptCount > 0 */}
+                  {showHintButton && (
+                    <button
+                      onClick={() => onHint(qData)}
+                      className="h-16 px-4 rounded-2xl font-bold text-gray-800 bg-amber-100 border-2 border-amber-200 hover:border-amber-300 animate-bounce"
+                    >
+                      Hint
+                    </button>
+                  )}
 
                   <div className="w-8">{icon}</div>
                 </div>
@@ -695,13 +708,18 @@
       // App
       // -----------------------
       function App() {
+        // Unlocked tests persistence
+        const [unlockedTests, setUnlockedTests] = useState(() => {
+            const saved = localStorage.getItem('john_math_unlocks');
+            return saved ? JSON.parse(saved) : [3];
+        });
+
         const [activeTest, setActiveTest] = useState(3);
         const [activeColumn, setActiveColumn] = useState("A");
 
         const [statuses, setStatuses] = useState({});
         const [attempts, setAttempts] = useState({});
         const [modalData, setModalData] = useState(null);
-
         const [confetti, setConfetti] = useState(false);
 
         const test = TEST_DATA[activeTest];
@@ -776,9 +794,21 @@
           if (activeColumn === "A" && test.columns.B) setActiveColumn("B");
           else if (activeColumn === "B" && test.columns.C) setActiveColumn("C");
           else {
+            // Test Completed Logic
             setConfetti(true);
             setTimeout(() => setConfetti(false), 900);
-            alert("Great job John! You finished this test.");
+            
+            // Unlock next test
+            let nextTestId = activeTest + 1;
+            if (activeTest === 12) nextTestId = 99; // Jump to progress test after 12
+            
+            if (!unlockedTests.includes(nextTestId) && TEST_DATA[nextTestId]) {
+                const newUnlocks = [...unlockedTests, nextTestId];
+                setUnlockedTests(newUnlocks);
+                localStorage.setItem('john_math_unlocks', JSON.stringify(newUnlocks));
+            }
+            
+            alert(`Great job John! You finished Test ${activeTest}.`);
           }
         };
 
@@ -806,19 +836,26 @@
 
                 {/* Test selector */}
                 <div className="flex gap-2 overflow-x-auto pb-2 mt-4 no-scrollbar">
-                  {[3,4,5,6,7,8,9,10,11,12,99].map((num) => (
-                    <button
-                      key={num}
-                      onClick={() => setActiveTest(num)}
-                      className={`px-4 py-2 rounded-2xl font-extrabold text-sm transition-all whitespace-nowrap border-2 ${
-                        activeTest === num
-                          ? "bg-sky-600 text-white border-sky-600 shadow-md"
-                          : "bg-white text-gray-600 border-gray-200 hover:border-sky-300"
-                      }`}
-                    >
-                      {num === 99 ? "Progress Test" : `Test ${num}`}
-                    </button>
-                  ))}
+                  {[3,4,5,6,7,8,9,10,11,12,99].map((num) => {
+                    const isUnlocked = unlockedTests.includes(num);
+                    return (
+                        <button
+                          key={num}
+                          onClick={() => isUnlocked ? setActiveTest(num) : null}
+                          disabled={!isUnlocked}
+                          className={`px-4 py-2 rounded-2xl font-extrabold text-sm transition-all whitespace-nowrap border-2 flex items-center gap-2 ${
+                            activeTest === num
+                              ? "bg-sky-600 text-white border-sky-600 shadow-md"
+                              : isUnlocked 
+                                ? "bg-white text-gray-600 border-gray-200 hover:border-sky-300"
+                                : "bg-gray-100 text-gray-400 border-gray-100 cursor-not-allowed locked-pattern"
+                          }`}
+                        >
+                          {num === 99 ? "Progress Test" : `Test ${num}`}
+                          {!isUnlocked && IconLock}
+                        </button>
+                    );
+                  })}
                 </div>
 
                 {/* Column tabs */}
